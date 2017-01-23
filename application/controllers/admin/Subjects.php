@@ -5,7 +5,21 @@ class Subjects extends CI_Controller
 {
 	public function index()
 	{
-		die("Subjects");
-		//$this->load->view('welcome_message');
+		$this->template->load('admin', 'default', 'subjects/index');
+	}
+
+	public function add()
+	{
+		$this->template->load('admin', 'default', 'subjects/add');
+	}
+
+	public function edit()
+	{
+		$this->template->load('admin', 'default', 'subjects/edit');
+	}
+
+	public function delete()
+	{
+
 	}
 }

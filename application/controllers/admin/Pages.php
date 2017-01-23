@@ -5,7 +5,21 @@ class Pages extends CI_Controller
 {
 	public function index()
 	{
-		die("Pages");
-		//$this->load->view('welcome_message');
+		$this->template->load('admin', 'default', 'pages/index');
+	}
+
+	public function add()
+	{
+		$this->template->load('admin', 'default', 'pages/add');
+	}
+
+	public function edit()
+	{
+		$this->template->load('admin', 'default', 'pages/edit');
+	}
+
+	public function delete()
+	{
+
 	}
 }
