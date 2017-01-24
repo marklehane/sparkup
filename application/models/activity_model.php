@@ -15,7 +15,7 @@ class Activity_model extends CI_MODEL
         return $query->result();
     }
 
-    public function add()
+    public function add($data)
     {
         $this->db->insert($this->table, $data);
     }
