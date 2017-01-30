@@ -13,20 +13,24 @@
 <table class="table table-striped">
 	<tr>
 		<th>ID</th>
-		<th>Name</th>
+		<th>Published</th>
+		<th>Title</th>
+		<th>Author</th>
 		<th>Date Created</th>
 		<th></th>
 	</tr>
-	<?php foreach ($subjects as $subject): ?>
-	<?php $date           = strtotime($subject->create_date);?>
+	<?php foreach ($pages as $page): ?>
+	<?php $date           = strtotime($page->create_date);?>
 	<?php $formatted_date = date('F j, Y, g:i a', $date);?>
 	<tr>
-		<td><?php echo $subject->id; ?></td>
-		<td><?php echo $subject->name; ?></td>
+		<td><?php echo $page->id; ?></td>
+		<td><?php echo $page->is_published; ?></td>
+		<td><?php echo $page->title; ?></td>
+		<td><?php echo 'SOME USER'; ?></td>
 		<td><?php echo $formatted_date; ?></td>
 		<td>
-			<?php echo anchor('admin/subjects/edit/' . $subject->id . '', 'Edit', 'class="btn btn-default"'); ?>
-			<?php echo anchor('admin/subjects/delete/' . $subject->id . '', 'Delete', 'class="btn btn-danger"'); ?>
+			<?php echo anchor('admin/pages/edit/' . $page->id . '', 'Edit', 'class="btn btn-default"'); ?>
+			<?php echo anchor('admin/pages/delete/' . $page->id . '', 'Delete', 'class="btn btn-danger"'); ?>
 		</td>
 	</tr>
 	<?php endforeach;?>
@@ -34,3 +38,4 @@
 
 <?php else: ?>
 	<p>No Pages</p>
+<?php endif; ?>

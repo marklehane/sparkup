@@ -5,7 +5,10 @@ class Pages extends CI_Controller
 {
     public function index()
     {
-        $this->template->load('admin', 'default', 'pages/index');
+        $data['pages'] = $this->Page_model->get_list();
+
+        //Load Template
+        $this->template->load('admin', 'default', 'pages/index', $data);
     }
 
     public function add()
