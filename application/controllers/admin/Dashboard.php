@@ -5,6 +5,11 @@ class Dashboard extends CI_Controller
 {
 	public function index()
 	{
-		$this->template->load('admin', 'default', 'dashboard');
+
+		//Get Activities
+		$data['activities'] = $this->Activity_model->get_list();
+
+		//Load Template
+		$this->template->load('admin', 'default', 'dashboard', $data);
 	}
 }

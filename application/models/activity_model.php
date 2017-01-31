@@ -11,7 +11,11 @@ class Activity_model extends CI_MODEL
 
     public function get_list()
     {
-        $query = $this->$this->db->get($this->table);
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->order_by('create_date', 'desc');
+        $this->db->limit(20,0);
+        $query = $this->db->get();
         return $query->result();
     }
 
