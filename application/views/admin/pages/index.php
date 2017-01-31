@@ -20,11 +20,18 @@
 		<th></th>
 	</tr>
 	<?php foreach ($pages as $page): ?>
+
+	<?php if($page->is_published) : ?>
+		<?php $publish_icon = 'glyphicon glyphicon-ok'; ?>
+	<?php else : ?>
+		<?php $publish_icon = 'glyphicon glyphicon-remove'; ?>
+	<?php endif ; ?>
+
 	<?php $date           = strtotime($page->create_date);?>
 	<?php $formatted_date = date('F j, Y, g:i a', $date);?>
 	<tr>
 		<td><?php echo $page->id; ?></td>
-		<td><?php echo $page->is_published; ?></td>
+		<td><span class="<?php echo $publish_icon; ?>"></span></td>
 		<td><?php echo $page->title; ?></td>
 		<td><?php echo 'SOME USER'; ?></td>
 		<td><?php echo $formatted_date; ?></td>
