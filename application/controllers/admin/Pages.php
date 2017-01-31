@@ -156,8 +156,29 @@ class Pages extends CI_Controller
         
     }
 
-    public function delete()
+    public function delete($id)
     {
+        $name = $this->Page_model->get($id)->title;
 
+        //Delete Subject
+        $this->Page_model->delete($id);
+
+        //Activity Array
+        $data = array(
+            'resource_id' => $this->db->insert_id(),
+            'type'        => 'page',
+            'action'      => 'deleted',
+            'user_id'     => 1,
+            'message'     => 'A page was deleted',
+        );
+
+        //Insert Activity
+        $this->Activity_model->add($data);
+
+        //Set Message
+        $this->session->set_flashdata('success', 'Page has been deleted');
+
+        //Redirect
+        redirect('admin/pages');
     }
 }
