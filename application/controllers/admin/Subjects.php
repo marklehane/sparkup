@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Subjects extends CI_Controller
+class Subjects extends Admin_Controller
 {
 
     public function __construct()
