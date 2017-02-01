@@ -3,6 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Subjects extends CI_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
+    }
+    
     public function index()
     {
         $data['subjects'] = $this->Subject_model->get_list();

@@ -3,6 +3,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pages extends CI_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
+    }
+    
     public function index()
     {
         $data['pages'] = $this->Page_model->get_list();
@@ -85,7 +96,7 @@ class Pages extends CI_Controller
 
     public function edit($id)
     {
-    	        //Field Rules
+        //Field Rules
         $this->form_validation->set_rules('title', 'Title', 'trim|required|min_length[3]');
         $this->form_validation->set_rules('subject_id', 'Subject', 'trim|required');
         $this->form_validation->set_rules('body', 'Body', 'trim|required');
@@ -93,11 +104,11 @@ class Pages extends CI_Controller
         $this->form_validation->set_rules('is_featured', 'Feature', 'required');
         $this->form_validation->set_rules('order', 'Order', 'integer');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
 
-        	$data['item'] = $this->Page_model->get($id);
+            $data['item'] = $this->Page_model->get($id);
 
-        	$subject_options    = array();
+            $subject_options    = array();
             $subject_options[0] = 'Select Subject';
 
             $subject_list = $this->Subject_model->get_list();
@@ -108,7 +119,7 @@ class Pages extends CI_Controller
 
             $data['subject_options'] = $subject_options;
 
-			$this->template->load('admin', 'default', 'pages/edit', $data);
+            $this->template->load('admin', 'default', 'pages/edit', $data);
 
         } else {
 
@@ -153,7 +164,7 @@ class Pages extends CI_Controller
             redirect('admin/pages');
 
         }
-        
+
     }
 
     public function delete($id)

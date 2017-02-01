@@ -43,4 +43,21 @@ class user_model extends CI_MODEL
         $this->db->where('id', $id);
         $this->db->delete($this->table);
     }
+
+    public function login($username, $password)
+    {
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() == 1){
+            return $query->row()->id;
+        } else {
+            return false;
+        }
+    }
 }

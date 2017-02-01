@@ -5,6 +5,12 @@ class Users extends CI_Controller
 {
     public function index()
     {
+
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
+
         $data['users'] = $this->User_model->get_list();
 
         //Load Template
@@ -13,6 +19,11 @@ class Users extends CI_Controller
 
     public function add()
     {
+
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
 
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|min_length[2]');
@@ -62,10 +73,10 @@ class Users extends CI_Controller
 
     public function edit($id)
     {
-        // // Check Login
-        // if (!$this->session->userdata('logged_in')) {
-        //     redirect('admin/login');
-        // }
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
 
         $this->form_validation->set_rules('first_name', 'First Name', 'trim|required|min_length[2]');
         $this->form_validation->set_rules('last_name', 'Last Name', 'trim|required|min_length[2]');
@@ -112,10 +123,10 @@ class Users extends CI_Controller
 
     public function delete($id)
     {
-        // // Check Login
-        // if (!$this->session->userdata('logged_in')) {
-        //     redirect('admin/login');
-        // }
+        // Check Login
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin/login');
+        }
 
         // Get Username
         $username = $this->User_model->get($id)->username;
@@ -129,7 +140,7 @@ class Users extends CI_Controller
             'type'        => 'user',
             'action'      => 'deleted',
             // 'user_id'     => $this->session->userdata('user_id'),
-            'user_id' => 1,
+            'user_id'     => 1,
             'message'     => 'A user was deleted',
         );
 
@@ -146,10 +157,55 @@ class Users extends CI_Controller
     public function login()
     {
 
+        $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[4]');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[4]');
+
+        if ($this->form_validation->run() == false) {
+            //Load View Into Template
+            $this->template->load('admin', 'login', 'users/login');
+        } else {
+            // Get Post Data
+            $username     = $this->input->post('username');
+            $password     = $this->input->post('password');
+            $enc_password = md5($password);
+
+            $user_id = $this->User_model->login($username, $enc_password);
+
+            if ($user_id) {
+                $user_data = array(
+                    'user_id'   => $user_id,
+                    'username'  => $username,
+                    'logged_in' => true,
+                );
+
+                // Set Session Data
+                $this->session->set_userdata($user_data);
+
+                // Create Message
+                $this->session->set_flashdata('success', 'You are logged in');
+
+                // Redirect to pages
+                redirect('admin');
+            } else {
+                // Create Error
+                $this->session->set_flashdata('error', 'Invalid Login');
+
+                // Redirect to pages
+                redirect('admin/users/login');
+            }
+        }
+
     }
 
     public function logout()
     {
+        $this->session->unset_userdata('logged_in');
+        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('username');
+        $this->session->sess_destroy();
 
+        // Message
+        $this->session->set_flashdata('success', 'You are logged out');
+        redirect('admin/users/login');
     }
 }

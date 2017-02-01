@@ -42,7 +42,7 @@
 
           <ul class="nav navbar-nav navbar-right">
             <li><?php echo anchor('/', 'View Website', 'target="_blank"'); ?></li>
-            <li><?php echo anchor('users/logout', 'Logout', 'title="Logout"'); ?></li>
+            <li><?php echo anchor('admin/users/logout', 'Logout', 'title="Logout"'); ?></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
