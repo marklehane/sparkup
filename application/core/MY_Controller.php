@@ -22,9 +22,9 @@ class Public_Controller extends MY_Controller
     {
         parent::__construct();
 
-        // $this->load->library('menu');
+        $this->load->library('menu');
 
-        // $this->pages = $this->menu->get_pages();
+        $this->pages = $this->menu->get_pages();
 
         // Brand/Logo
         $this->brand = 'My Website';

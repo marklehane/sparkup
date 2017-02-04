@@ -33,7 +33,7 @@
 		<td><?php echo $page->id; ?></td>
 		<td><span class="<?php echo $publish_icon; ?>"></span></td>
 		<td><?php echo $page->title; ?></td>
-		<td><?php echo 'SOME USER'; ?></td>
+		<td><?php echo get_user_full_name($page->user_id); ?></td>
 		<td><?php echo $formatted_date; ?></td>
 		<td>
 			<?php echo anchor('admin/pages/edit/' . $page->id . '', 'Edit', 'class="btn btn-default"'); ?>

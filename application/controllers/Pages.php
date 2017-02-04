@@ -5,7 +5,17 @@ class Pages extends Public_Controller
 {
 	public function index()
 	{
-		die("Pages");
-		// $this->load->view('welcome_message');
+		$data['featured_pages'] = $this->Page_model->get_featured();
+
+		//Load Template
+		$this->template->load('public', 'default', 'pages/index', $data);
+	}
+
+	public function show($slug)
+	{
+		$data['page'] = $this->Page_model->get_by_slug($slug);
+
+		//Load Template
+		$this->template->load('public', 'default', 'pages/show', $data);
 	}
 }

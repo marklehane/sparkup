@@ -37,10 +37,10 @@
             <ul class="nav navbar-nav">
               <li><a href="<?php echo base_url(); ?>">Home</a></li>
               <?php if($this->pages) : ?>
-              <?php foreach($this->pages as $page) : ?>
-              <li><a href="<?php echo base_url(); ?>pages/show/<?php echo $page->slug; ?>"><?php echo $page->title; ?></a></li>
-              <?php endforeach; ?>
-            <?php endif; ?>
+                <?php foreach($this->pages as $page) : ?>
+                  <li><a href="<?php echo base_url(); ?>pages/show/<?php echo $page->slug; ?>"><?php echo $page->title; ?></a></li>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </ul>
            
           </div><!--/.nav-collapse -->

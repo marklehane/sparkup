@@ -13,7 +13,7 @@ class Subjects extends Admin_Controller
             redirect('admin/login');
         }
     }
-    
+
     public function index()
     {
         $data['subjects'] = $this->Subject_model->get_list();
@@ -42,7 +42,7 @@ class Subjects extends Admin_Controller
                 'resource_id' => $this->db->insert_id(),
                 'type'        => 'subject',
                 'action'      => 'added',
-                'user_id'     => 1,
+                'user_id'     => $this->session->userdata('user_id'),
                 'message'     => 'A new subject was added (' . $data["name"] . ')',
             );
 
@@ -86,7 +86,7 @@ class Subjects extends Admin_Controller
                 'resource_id' => $this->db->insert_id(),
                 'type'        => 'subject',
                 'action'      => 'updated',
-                'user_id'     => 1,
+                'user_id'      => $this->session->userdata('user_id'),
                 'message'     => 'A subject (' . $old_name . ') was updated (' . $new_name . ')',
             );
 
@@ -114,7 +114,7 @@ class Subjects extends Admin_Controller
             'resource_id' => $this->db->insert_id(),
             'type'        => 'subject',
             'action'      => 'deleted',
-            'user_id'     => 1,
+            'user_id'      => $this->session->userdata('user_id'),
             'message'     => 'A subject was deleted',
         );
 
